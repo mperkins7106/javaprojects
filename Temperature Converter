@@ -1,0 +1,115 @@
+package unit04;
+
+public class Temp
+{
+        public char scale;
+        public double degrees;
+        public static int TempCount;
+        public int Unitid;
+
+        public double getDegrees()
+        {
+                return degrees;
+        }
+        public void setDegrees(double degrees)
+        {
+                this.degrees = degrees;
+        }
+        public char getScale()
+        {
+                return scale;
+        }
+        public void setScale(char scale)
+        {
+                if(scale == 'F')
+                {
+                        this.scale = scale;
+                }
+                else
+                {
+                        this.scale = 'C';
+                }
+        }
+
+        public Temp()//constructor
+        {
+                this(0,'C');
+        }
+        public Temp(double degrees)//constructor
+        {
+                this(degrees, 'C');
+        }
+        public Temp(char scale)//constructor
+        {
+                this(0, scale);
+        }
+        public Temp(double degrees, char scale)//constructor doing the work
+        {
+                this.setDegrees(degrees);
+                this.setScale(scale);
+                TempCount++;
+                this.Unitid = TempCount;
+        }
+
+        public double getF()
+        {
+                double results;
+                if (scale == 'F')
+                {
+                results = degrees;
+                }
+                else
+                {
+                results = (9*(degrees/5)+32);
+                }
+                return Math.round(results*10)/10.0;
+        }
+        public double getC()
+        {
+                        double results;
+                        if (scale == 'C')
+                        {
+                        results = degrees;
+                        }
+                        else
+                        {
+                        results = (5*(degrees-32)/9);
+                        }
+                        return Math.round(results*10)/10.0;
+        }
+        public static int getTempCount()
+        {
+                return TempCount;
+        }
+
+        public boolean equals (Object obj)
+        {
+                if (!(obj instanceof Temp))
+                {
+                        return false;
+                }
+                Temp other = (Temp)obj;
+                        return Math.abs(this.getC()-other.getC()) <= 0.1;
+        }
+
+        public int compareTo(Temp other)
+        {
+                if(this.getC() < other.getC())
+                {
+                        return -1;
+                }
+                if(this.getC() > other.getC())
+                {
+                        return 1;
+                }
+                return 0;
+        }
+        public String toString()
+        {
+                return
+                                "Object ID:" + this.Unitid + "\n" +
+                                "Temperature in F:" + this.getF() + "\n" +
+                                "Temperature in C:" + this.getC();
+        }
+
+}
